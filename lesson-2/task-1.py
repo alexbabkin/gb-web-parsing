@@ -11,7 +11,7 @@ def parse_salary(salary_text):
     if '-' in salary_text:
         tokens = salary_text.split('-')
         t_tokens = tokens[1].split(' ')
-        return (tokens[0], t_tokens[0], t_tokens[1])
+        return tokens[0], t_tokens[0], t_tokens[1]
     if 'от' in salary_text:
         tokens = salary_text.split(' ')
         return tokens[1], '', tokens[2]
