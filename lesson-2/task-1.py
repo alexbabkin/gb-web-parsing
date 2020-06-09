@@ -76,4 +76,4 @@ for page in range(query_pages):
     for v in rsp_vacancies:
         vacancies = vacancies.append(get_sj_vacancy_data(v), ignore_index=True)
 
-    vacancies.to_csv('vacancies_data.csv')
+vacancies.to_csv('vacancies_data.csv')
