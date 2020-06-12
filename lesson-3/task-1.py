@@ -5,7 +5,6 @@ from vacancy_parser import hh_vacancy, sj_vacancy
 client = MongoClient('192.168.19.48', 8080)
 db = client['vacancies']
 vacancy_db = db.vacancy
-vacancy_db.delete_many({})
 
 query_vacancy = input('vacancy: ')
 query_pages = int(input('search pages: '))
