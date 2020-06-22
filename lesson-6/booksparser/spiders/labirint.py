@@ -20,7 +20,13 @@ class LabirintSpider(scrapy.Spider):
     def handle_book_data(self, response: HtmlResponse):
         book_title = response.xpath('//div[@class="prodtitle"]/h1/text()').extract_first()
         price = response.xpath('//span[@class="buying-pricenew-val-number"]/text()').extract_first()
-        currency = response.xpath('//span[@class="buying-pricenew-val-currency"]/text()').extract_first()
-        book_price = f'{price} {currency}'
-        yield BooksparserItem(book_title=book_title, book_price=book_price)
-        pass
+        if price is None:
+            price = response.xpath('//span[@class="buying-price-val-number"]/text()').extract_first()
+        initial_price = response.xpath('//span[@class="buying-priceold-val-number"]/text()').extract_first()
+        if initial_price is None:
+            initial_price = price
+        link = response.request.url
+        author = response.xpath('//a[@data-event-label="author"]/text()').extract_first()
+        rating = response.xpath('//div[@id="rate"]/text()').extract_first()
+        yield BooksparserItem(book_title=book_title, book_price=price, book_initial_price=initial_price,
+                              book_link=link, book_author=author, book_rating=rating)
